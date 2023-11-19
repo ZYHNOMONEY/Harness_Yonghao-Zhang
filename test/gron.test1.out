@@ -1,0 +1,12 @@
+o.company = "Tech Corp"
+o.employees.0.name = "John Doe Yonghao"
+o.employees.0.department = "Engineering"
+o.employees.0.years = 5
+o.employees.1.name = "Jane Smith Zhang"
+o.employees.1.department = "Marketing"
+o.employees.1.years = 3
+o.location.city = "New York"
+o.location.address = "123 Tech Street"
+o.location.zip = "10001"
+o.revenue = 5000000
+o.publicly_traded = false

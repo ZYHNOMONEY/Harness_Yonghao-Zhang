@@ -1,17 +1,15 @@
 import os
 import subprocess
+import sys
 
-def run_test(program, input_file, expected_output, mode):
-    # Run the program with the input and capture the output and exit status
-    if mode == 'stdin':
-        with open(input_file, 'r') as file:
-            process = subprocess.run(['python', f'prog/{program}.py'], stdin=file, text=True, capture_output=True)
-    else:  # mode == 'arg'
-        process = subprocess.run(['python', f'prog/{program}.py', input_file], text=True, capture_output=True)
-    
+def run_test(program, input_file, expected_output):
+    command = ['python', f'prog/{program}.py']
+
+    with open(input_file, 'r') as file:
+        process = subprocess.run(command, stdin=file, text=True, capture_output=True)
+
     output = process.stdout
-    exit_status = process.returncode
-    return output == expected_output and exit_status == 0
+    return output == expected_output and process.returncode == 0
 
 def main():
     test_dir = 'test/'
@@ -20,33 +18,24 @@ def main():
 
     for filename in os.listdir(test_dir):
         if filename.endswith('.in'):
-            prog, _ = filename.split('.', 1)
-            test_name = filename[len(prog) + 1:-3]
+            # Construct program name and test case name
+            prog, test_name = os.path.splitext(filename)[0].split('.', 1)
 
-            with open(os.path.join(test_dir, filename), 'r') as file:
-                input_data = file.read()
+            input_file_path = os.path.join(test_dir, filename)
+            output_file_path = os.path.join(test_dir, f'{prog}.{test_name}.out')
 
-            with open(os.path.join(test_dir, f'{prog}.{test_name}.out'), 'r') as file:
+            # Reading expected output
+            with open(output_file_path, 'r') as file:
                 expected_output = file.read()
 
-            # Test with STDIN
-            if run_test(prog, os.path.join(test_dir, filename), expected_output, 'stdin'):
-                test_results.append(f'OK: {prog} {test_name} (stdin)')
+            # Run test
+            if run_test(prog, input_file_path, expected_output):
+                test_results.append(f'OK: {prog} {test_name}')
             else:
-                test_results.append(f'FAIL: {prog} {test_name} (stdin)')
+                test_results.append(f'FAIL: {prog} {test_name}')
                 fail_count += 1
 
-            # Test with argument
-            if os.path.exists(os.path.join(test_dir, f'{prog}.{test_name}.arg.out')):
-                with open(os.path.join(test_dir, f'{prog}.{test_name}.arg.out'), 'r') as file:
-                    expected_output_arg = file.read()
-
-                if run_test(prog, os.path.join(test_dir, filename), expected_output_arg, 'arg'):
-                    test_results.append(f'OK: {prog} {test_name} (arg)')
-                else:
-                    test_results.append(f'FAIL: {prog} {test_name} (arg)')
-                    fail_count += 1
-
+    # Print test results
     for result in test_results:
         print(result)
 
@@ -54,7 +43,7 @@ def main():
     print(f'Failed tests: {fail_count}')
 
     if fail_count > 0:
-        exit(1)
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,12 @@
+json.name = "Example"
+json.version = 1.0
+json.features.enabled = true
+json.features.items[0] = "item1"
+json.features.items[1] = "item2"
+json.features.items[2] = "item3"
+json.features.details.author = "zyh"
+json.features.details.license = "sit"
+json.tags[0] = "test"
+json.tags[1] = "json"
+json.tags[2] = "example"
+json.metadata = null

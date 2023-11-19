@@ -1,18 +1,17 @@
 import json
 import sys
+import argparse
 
-def flatten_json(y):
+def flatten_json(y, base_obj_name):
     out = {}
 
     def flatten(x, name=''):
-        if type(x) is dict:
+        if isinstance(x, dict):
             for a in x:
                 flatten(x[a], name + a + '.')
-        elif type(x) is list:
-            i = 0
-            for a in x:
+        elif isinstance(x, list):
+            for i, a in enumerate(x):
                 flatten(a, name + str(i) + '.')
-                i += 1
         else:
             out[name[:-1]] = x
 
@@ -26,21 +25,24 @@ def read_json_input(file_path=None):
     else:
         return json.load(sys.stdin)
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Flatten JSON with a custom base object name.')
+    parser.add_argument('--obj', default='json', help='Specify the base object name.')
+    parser.add_argument('file', nargs='?', help='The JSON file to process.', default=None)
+    return parser.parse_args()
+
 def main():
-
     try:
-        # Determine input source (file or STDIN)
-        file_path = sys.argv[1] if len(sys.argv) > 1 else None
-        json_data = read_json_input(file_path)
+        args = parse_arguments()
 
-        # Flatten the JSON data
-        flattened_data = flatten_json(json_data)
+        json_data = read_json_input(args.file)
 
-        # Output the flattened JSON
+        flattened_data = flatten_json(json_data, args.obj)
+
         for k, v in flattened_data.items():
-            print(f"json.{k} = {json.dumps(v)}")
+            print(f"{args.obj}.{k} = {json.dumps(v)}")
     except Exception as e:
-        print(f"Error:{e}", file=sys.stderr)
+        print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
     sys.exit(0)
 

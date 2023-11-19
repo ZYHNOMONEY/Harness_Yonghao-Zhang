@@ -1,0 +1,14 @@
+{
+    "company": "Tech Corp",
+    "employees": [
+        {"name": "John Doe Yonghao", "department": "Engineering", "years": 5},
+        {"name": "Jane Smith Zhang", "department": "Marketing", "years": 3}
+    ],
+    "location": {
+        "city": "New York",
+        "address": "123 Tech Street",
+        "zip": "10001"
+    },
+    "revenue": 5000000,
+    "publicly_traded": false
+}
