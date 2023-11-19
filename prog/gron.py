@@ -27,16 +27,22 @@ def read_json_input(file_path=None):
         return json.load(sys.stdin)
 
 def main():
-    # Determine input source (file or STDIN)
-    file_path = sys.argv[1] if len(sys.argv) > 1 else None
-    json_data = read_json_input(file_path)
 
-    # Flatten the JSON data
-    flattened_data = flatten_json(json_data)
+    try:
+        # Determine input source (file or STDIN)
+        file_path = sys.argv[1] if len(sys.argv) > 1 else None
+        json_data = read_json_input(file_path)
 
-    # Output the flattened JSON
-    for k, v in flattened_data.items():
-        print(f"json.{k} = {json.dumps(v)}")
+        # Flatten the JSON data
+        flattened_data = flatten_json(json_data)
+
+        # Output the flattened JSON
+        for k, v in flattened_data.items():
+            print(f"json.{k} = {json.dumps(v)}")
+    except Exception as e:
+        print(f"Error:{e}", file=sys.stderr)
+        sys.exit(1)
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
