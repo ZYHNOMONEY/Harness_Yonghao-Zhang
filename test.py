@@ -30,7 +30,7 @@ def main():
     test = [
         ('gron', 'test'),
         ('ungron', 'test'),
-        ('wc', 'test1')
+        ('wc', 'test')
     ]
 
     all_passed = True
