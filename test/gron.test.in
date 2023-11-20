@@ -1,0 +1,14 @@
+{
+    "company": "Tech Team",
+    "employees": [
+        {"name": "Yonghao", "department": "Engineering", "years": 10},
+        {"name": "Zhang", "department": "Marketing", "years": 1}
+    ],
+    "location": {
+        "city": "New York",
+        "address": "233 Tech Street",
+        "zip": "23333"
+    },
+    "revenue": 3222222,
+    "publicly_traded": false
+}

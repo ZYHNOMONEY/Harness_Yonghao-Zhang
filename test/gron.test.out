@@ -1,0 +1,12 @@
+json.company = "Tech Team"
+json.employees.0.name = "Yonghao"
+json.employees.0.department = "Engineering"
+json.employees.0.years = 10
+json.employees.1.name = "Zhang"
+json.employees.1.department = "Marketing"
+json.employees.1.years = 1
+json.location.city = "New York"
+json.location.address = "233 Tech Street"
+json.location.zip = "23333"
+json.revenue = 3222222
+json.publicly_traded = false

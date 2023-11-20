@@ -33,6 +33,8 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
+    if not (args.lines or args.words or args.characters):
+        args.lines = args.words = args.characters = True
 
     total = [0, 0, 0]
     for file_name in args.files:
