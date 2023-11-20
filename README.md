@@ -15,7 +15,7 @@
 * 1:tested **`ungron` Function:**    Accepts a list of lines, each representing a flattened JSON key-value pair. Splits each line into a path and a value. The value is converted back into a JSON object using `json.loads`. Returns the reconstructed, nested JSON object.
 * 2:tested **Argument Parsing:**    The script uses `argparse` to define a command-line interface. It requires one argument, `filename`, which is the path to the file containing the flattened JSON data.
 ## Issues can not resolve:
-* `ungron` and `wc` can not pass CI.
+* `ungron` and `wc` can not pass CI. After long time debug....it finally workout.
 ##  Example issue solved:
 In flattened JSON, nested structures are reduced to a single level. During reconstruction, it’s important to correctly identify and create nested dictionaries or arrays, ensuring the consistency of the data structure. the nested structure reconstruction is handled by the `create_structure` function. This function is designed to take a base path and a dictionary representing a directory structure, and then it creates the corresponding directories and files on the file system.
 ##  Extensions：
