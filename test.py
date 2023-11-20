@@ -4,14 +4,10 @@ def run_test(prog, test_name):
     input_file = f"test/{prog}.{test_name}.in"
     expected_output_file = f"test/{prog}.{test_name}.out"
 
-    with open(input_file, 'r') as f:
-        input_data = f.read()
-
     result = subprocess.run(
-        ['python3', f'prog/{prog}.py'],
-        input=input_data, text=True, capture_output=True)
+        ['python', f'prog/{prog}.py', input_file],
+        text=True, capture_output=True)
     output = result.stdout.strip()
-
     with open(expected_output_file, 'r') as f:
         expected_output = f.read().strip()
         
